@@ -2,59 +2,95 @@ import { useState } from 'react';
 import '../components/NormalCalculator.css';
 
 function NormalCalculator() {
-    const [input, setInput] = useState(''); // Guarda la entrada del usuario
-  
-    // Maneja los clics en los botones numéricos y de operaciones
-    const handleClick = (value) => {
-      setInput((prev) => prev + value);
-    };
-  
-    // Limpia la pantalla
-    const handleClear = () => {
-      setInput('');
-    };
-  
-    // Realiza el cálculo
-    const handleCalculate = () => {
-      try {
-        // Usamos eval para calcular el resultado (aunque no es lo más seguro, funciona para una demo)
-        setInput(eval(input).toString());
-      } catch {
-        setInput('Error');
+  const [input, setInput] = useState('');
+
+  const handleClick = (value) => {
+    setInput((prev) => prev + value);
+  };
+
+  const handleClear = () => {
+    setInput('');
+  };
+
+  const handleCalculate = () => {
+    try {
+      // Nota: Usar mathjs en producción para mayor seguridad
+      let result;
+      if (input.includes('√')) {
+        const num = parseFloat(input.replace('√', ''));
+        result = Math.sqrt(num);
+      } else if (input.includes('1/')) {
+        const num = parseFloat(input.replace('1/', ''));
+        result = 1 / num;
+      } else {
+        result = eval(input.replace('%', '/100'));
       }
-    };
-  
-    return (
-      <div className="container">
-        <div className="calculator">
-          <div className="display">
-            {input || '0'} {/* Muestra el input o '0' si está vacío */}
-          </div>
-          <div className="buttons">
-            <button className="btn-gray" onClick={() => handleClear()}>C</button>
-            <button className="btn-gray" onClick={() => handleClick('7')}>7</button>
-            <button className="btn-gray" onClick={() => handleClick('8')}>8</button>
-            <button className="btn-gray" onClick={() => handleClick('9')}>9</button>
-            <button className="btn-orange" onClick={() => handleClick('/')}>/</button>
-            
-            <button className="btn-gray" onClick={() => handleClick('4')}>4</button>
-            <button className="btn-gray" onClick={() => handleClick('5')}>5</button>
-            <button className="btn-gray" onClick={() => handleClick('6')}>6</button>
-            <button className="btn-orange" onClick={() => handleClick('*')}>*</button>
-            
-            <button className="btn-gray" onClick={() => handleClick('1')}>1</button>
-            <button className="btn-gray" onClick={() => handleClick('2')}>2</button>
-            <button className="btn-gray" onClick={() => handleClick('3')}>3</button>
-            <button className="btn-orange" onClick={() => handleClick('-')}>-</button>
-  
-            <button className="btn-gray" onClick={() => handleClick('0')}>0</button>
-            <button className="btn-gray" onClick={() => handleClick('.')}>.</button>
-            <button className="btn-green" onClick={handleCalculate}>=</button>
-            <button className="btn-orange" onClick={() => handleClick('+')}>+</button>
-          </div>
+      setInput(result.toString());
+    } catch {
+      setInput('Error');
+    }
+  };
+
+  const handleBackspace = () => {
+    setInput((prev) => prev.slice(0, -1) || '');
+  };
+
+  const handleToggleSign = () => {
+    setInput((prev) => (prev ? String(-parseFloat(prev)) : ''));
+  };
+
+  const handleInverse = () => {
+    setInput((prev) => (prev ? `1/${prev}` : ''));
+  };
+
+  const handleSquareRoot = () => {
+    setInput((prev) => (prev ? `√${prev}` : ''));
+  };
+
+  return (
+    <div className="normal-calculator-container">
+      <div className="normal-calculator">
+        <h2 className="calculator-title">Calculadora Normal</h2>
+        <div className="display">{input || '0'}</div>
+        <div className="buttons">
+          {/* Fila 1 */}
+          <button className="btn-clear" onClick={handleClear}>C</button>
+          <button className="btn-operator" onClick={handleToggleSign}>±</button>
+          <button className="btn-operator" onClick={() => handleClick('/')}>÷</button>
+          <button className="btn-operator" onClick={handleBackspace}>⌫</button>
+          <button className="btn-operator" onClick={handleInverse}>1/x</button>
+          
+          {/* Fila 2 */}
+          <button className="btn-number" onClick={() => handleClick('7')}>7</button>
+          <button className="btn-number" onClick={() => handleClick('8')}>8</button>
+          <button className="btn-number" onClick={() => handleClick('9')}>9</button>
+          <button className="btn-operator" onClick={() => handleClick('*')}>×</button>
+          <button className="btn-operator" onClick={handleSquareRoot}>√</button>
+          
+          {/* Fila 3 */}
+          <button className="btn-number" onClick={() => handleClick('4')}>4</button>
+          <button className="btn-number" onClick={() => handleClick('5')}>5</button>
+          <button className="btn-number" onClick={() => handleClick('6')}>6</button>
+          <button className="btn-operator" onClick={() => handleClick('-')}>−</button>
+          <button className="btn-empty"></button>
+          
+          {/* Fila 4 */}
+          <button className="btn-number" onClick={() => handleClick('1')}>1</button>
+          <button className="btn-number" onClick={() => handleClick('2')}>2</button>
+          <button className="btn-number" onClick={() => handleClick('3')}>3</button>
+          <button className="btn-operator" onClick={() => handleClick('+')}>+</button>
+          <button className="btn-empty"></button>
+          
+          {/* Fila 5 */}
+          <button className="btn-number" onClick={() => handleClick('0')}>0</button>
+          <button className="btn-number" onClick={() => handleClick('.')}>.</button>
+          <button className="btn-equals" onClick={handleCalculate}>=</button>
+          <button className="btn-empty"></button>
+          <button className="btn-empty"></button>
         </div>
       </div>
-    );
-  }
-  
-  export default NormalCalculator;
+    </div>
+  );
+}
+
+export default NormalCalculator;
