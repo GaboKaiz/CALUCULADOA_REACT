@@ -1,0 +1,84 @@
+.integrantes-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Centra verticalmente el contenido */
+  min-height: 100vh;
+  padding: 40px;
+}
+
+.integrantes-title {
+  font-size: 2.8rem;
+  font-weight: 600;
+  margin-bottom: 40px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.integrantes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px; /* Reduje el espacio entre tarjetas para un diseño más compacto */
+  width: 100%;
+  max-width: 1000px; /* Reduje el ancho máximo para centrar más las tarjetas */
+  justify-items: center; /* Centra las tarjetas dentro de la cuadrícula */
+}
+
+.integrante-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  animation: fadeInCard 0.5s ease-in-out forwards;
+  animation-delay: calc(var(--index) * 0.1s);
+  opacity: 0;
+  width: 200px; /* Fijo el ancho de las tarjetas para uniformidad */
+}
+
+@keyframes fadeInCard {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.integrante-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+.integrante-photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 15px auto; /* Centra la imagen horizontalmente */
+  display: block; /* Asegura que la imagen se comporte como bloque para el centrado */
+  transition: all 0.3s ease;
+}
+
+.integrante-card:hover .integrante-photo {
+  transform: scale(1.1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.integrante-name {
+  font-size: 1.1rem; /* Reduje ligeramente el tamaño para que quepa mejor */
+  font-weight: 500;
+  color: #ffffff;
+  transition: all 0.3s ease;
+  line-height: 1.4; /* Mejora la legibilidad de nombres largos */
+}
+
+.integrante-card:hover .integrante-name {
+  transform: translateY(-5px);
+}

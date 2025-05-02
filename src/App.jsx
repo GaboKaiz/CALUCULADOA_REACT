@@ -1,20 +1,29 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import NormalCalculator from './pages/NormalCalculator';
 import ScientificCalculator from './pages/ScientificCalculator';
-import './App.css';
+import AboutUs from './pages/AboutUs';
+import Contact from './pages/Contact';
+import Integrantes from './pages/Integrantes'; // Nueva importación
+import './components/GlobalStyles.css';
 
 function App() {
   return (
-    <BrowserRouter>
-      <div className="min-h-screen bg-gray-100">
+    <Router>
+      <div className="app-container">
         <Navbar />
-        <Routes>
-          <Route path="/" element={<NormalCalculator />} />
-          <Route path="/scientific" element={<ScientificCalculator />} />
-        </Routes>
+        <div className="main-content">
+          <Routes>
+            <Route path="/" element={<NormalCalculator />} />
+            <Route path="/calculator" element={<NormalCalculator />} />
+            <Route path="/scientific" element={<ScientificCalculator />} />
+            <Route path="/about" element={<AboutUs />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/integrantes" element={<Integrantes />} /> {/* Nueva ruta */}
+          </Routes>
+        </div>
       </div>
-    </BrowserRouter>
+    </Router>
   );
 }
 

@@ -3,8 +3,11 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(135deg, #2c3e50, #3498db);
-    font-family: 'Arial', sans-serif;
+  }
+  
+  .calculator-wrapper {
+    display: flex;
+    gap: 20px;
   }
   
   .normal-calculator {
@@ -19,17 +22,18 @@
   }
   
   .calculator-title {
-    color: #ffffff;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
+    font-weight: 600;
     text-align: center;
     margin-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   }
   
   .display {
     width: 100%;
     background: rgba(0, 0, 0, 0.3);
-    color: #ffffff;
-    font-size: 2rem;
+    font-size: 2.2rem;
+    font-weight: 500;
     text-align: right;
     padding: 15px;
     border-radius: 10px;
@@ -45,20 +49,21 @@
   
   button {
     padding: 15px;
-    font-size: 1rem;
+    font-size: 1.2rem;
+    font-weight: 500;
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
   }
   
   button:hover {
-    transform: translateY(-2px);
+    transform: scale(1.05);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
   }
   
   button:active {
-    transform: translateY(0);
+    transform: scale(0.95);
     box-shadow: none;
   }
   
@@ -96,4 +101,67 @@
   
   .btn-equals:hover {
     background: #219653;
+  }
+  
+  .btn-empty {
+    background: transparent;
+    cursor: default;
+  }
+  
+  .btn-empty:hover {
+    transform: none;
+    box-shadow: none;
+  }
+  
+  .btn-empty:active {
+    transform: none;
+    box-shadow: none;
+  }
+  
+  .history-panel {
+    width: 250px;
+    padding: 20px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .history-panel h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .history-panel p {
+    font-size: 1rem;
+    font-weight: 400;
+    opacity: 0.8;
+    text-align: center;
+  }
+  
+  .history-panel ul {
+    list-style: none;
+    padding: 0;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  
+  .history-panel li {
+    font-size: 0.95rem;
+    font-weight: 400;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    animation: fadeInItem 0.3s ease-in;
+  }
+  
+  .history-panel .timestamp {
+    font-size: 0.85rem;
+    opacity: 0.7;
   }
